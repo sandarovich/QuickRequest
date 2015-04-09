@@ -1,0 +1,135 @@
+
+<% layout('layout') -%>
+
+<div class="container">
+	<div id="mainbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+<% if (!user) { %>
+<h2>Welcome to <span class="label label-primary">Quick Request</span><h2>
+<h4>Please <a href="/login">Log in</a>.</h4>
+<% } else { %>
+
+	   <div class="panel panel-default" >
+        <div class="panel-heading">
+            <div class="panel-title">Quick ticket creation</div>
+        </div>
+        <div style="padding-top:30px" class="panel-body" >
+    		<form id="local-email-form" class="form-horizontal" role="form" method="post">
+    			
+          
+          <div style="margin-bottom: 15px" class="form-group">
+            <div class="col-xs-11 selectContainer">
+              <select id ="local-email-category" class="form-control" name="category">
+                  <option value='0502261099'>Инфраструктура</option>
+                  <option value='01020101'>Пользователи</option>
+                  <option value='03992699'>Софт</option>     
+              </select>  
+            </div>                                      
+          </div>
+          
+          <div style="margin-bottom: 15px" class="form-group">
+           	<div class="col-xs-11">
+           		<textarea id="local-email-description" rows="4" class="form-control" placeholder="Описание запроса" autofocus></textarea>
+           	</div>
+          </div>
+              
+          <div style="margin-bottom: 15px" class="form-group">
+            <div class="col-xs-11">
+              <!-- <div class="checkbox"> -->
+                  <!--<label><input id="local-email-request-type" type="checkbox" name="request-type">Change request</label>-->
+              <!--</div> -->
+              <!-- www.bootstraptoggle.com -->
+              <input id="local-email-request-type" data-toggle="toggle" name="request-type" data-size="mini" data-onstyle="primary" data-on="Incident" data-off="Change" type="checkbox" checked> 
+            </div>
+          </div>
+
+          <div class="form-group">
+        		<div class="col-xs-11">
+        			<button id="local-email-send" class="btn btn-default" type="button">Send email</button>
+              <div id="local-email-info" style="display: inline; margin-left: 10px; font-size: 80%;" class=".alert alert-success"></div>
+        		</div>
+        	</div>	
+    		</form>
+    	</div> 
+     </div>
+     
+    <script>   
+      $(document).ready(function() {
+        var from, to, cc, subject, text, category;
+
+        // Variables from active session
+        var user_id = <%- JSON.stringify(user.username) %>;
+        from = <%- JSON.stringify(user.email) %>;
+
+        $('#local-email-description').on('keypress', function(e){
+        //e.preventDefault(); // Switch off browser combo
+         if (e.altKey) {
+            if (String.fromCharCode(e.which).match(/\d+/g) !== null) {
+              //alert(String.fromCharCode(e.which));
+             var parameters = {templateID:String.fromCharCode(e.which)}
+              $.get('/template', parameters, function(data) {
+                $('#local-email-description').val(data);
+              });
+           }
+         }
+        });
+
+        $("#local-email-send").click(function(){
+          // CR CATEGORY FIX (Different from incident)
+          if ( $('#local-email-request-type')[0].checked == false && $('#local-email-category').val() == '01020101') {
+            category = '010204';
+          } else {
+            category = $('#local-email-category').val();
+          };
+
+          if ($('#local-email-description').val().length == 0) {
+            $('#local-email-description').focus();
+            $('#local-email-info').html("<span class='glyphicon glyphicon-thumbs-down'></span>&nbsp;Description is empty. Ticket was not submitted!!!").fadeIn(1000);
+            return;
+          }
+          
+          //Setting parameters
+          //to = from;
+          to = 'Service.Desk@cchellenic.com';
+          cc = from;
+          
+          var shrtDscr = ($('#local-email-description').val().split('\n'))[0].substring(0,30); 
+         
+          subject = 'ru ' + ($('#local-email-request-type').is(":checked") ? 'incident':'change')
+            + ' ' + '|' + category + '| ' +  user_id + ': '
+            + shrtDscr;
+          //alert(subject);
+          //return;         
+          text = $('#local-email-description').val();
+         
+          // Request to api to send email
+          $.ajax({
+            url: "esend",
+            data: { from: from, to: to, cc: cc, subject: subject, text:text},
+            type: 'GET',
+            crossDomain: true,
+            dataType: 'json',
+            beforeSend: function() {
+              $('#local-email-info').toggle();
+            },
+            success: function() { 
+              $('#local-email-info').html("<span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;" + 'Successfully sent at ' + to + '!').fadeIn(800);
+              $('#local-email-statistic').text( parseInt($('#local-email-statistic').text()) + 1);
+              
+              //SET default values to form
+              $('#local-email-category').val('0502261099') ; //Default category
+              $('#local-email-request-type').prop('checked', false); // Default is incidents 
+              $('#local-email-request-type').bootstrapToggle('on');
+              $('#local-email-description').val('').focus();
+            },
+            error: function() { 
+              alert('Sorry.Unable to send email! Plese check UAIEVAD7 service or contact Administrator!'); 
+            },           
+          });
+          
+         });
+      });
+    </script>  
+
+<% } %>
+	</div>
+</div>
