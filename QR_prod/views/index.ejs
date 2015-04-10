@@ -46,7 +46,7 @@
           <div class="form-group">
         		<div class="col-xs-11">
         			<button id="local-email-send" class="btn btn-default" type="button">Send email</button>
-              <div id="local-email-info" style="display: inline; margin-left: 10px; font-size: 80%;" class=".alert alert-success"></div>
+              <div id="local-email-info" style="display: inline; margin-left: 10px; font-size: 80%;"></div>
         		</div>
         	</div>	
     		</form>
@@ -88,7 +88,7 @@
 
           if ($('#local-email-description').val().length == 0) {
             $('#local-email-description').focus();
-            $('#local-email-info').html("<span class='glyphicon glyphicon-thumbs-down'></span>&nbsp;Description is empty. Ticket was not submitted!!!").fadeIn(1000);
+            $('#local-email-info').html("<span class='glyphicon glyphicon-thumbs-down'></span>&nbsp;Description is empty. Ticket was not submitted!!!").attr("class",".alert alert-danger").fadeIn(1000);
             return;
           }
 
@@ -117,7 +117,8 @@
               $('#local-email-info').toggle();
             },
             success: function() { 
-              $('#local-email-info').html("<span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;" + 'Successfully sent at ' + to + '!').fadeIn(800);
+              $('#local-email-info').html("<span class='glyphicon glyphicon-thumbs-up'></span>&nbsp;" 
+                + 'Successfully sent at ' + to + '!').attr("class", ".alert alert-success").fadeIn(800);
               $('#local-email-statistic').text( parseInt($('#local-email-statistic').text()) + 1);
               
               //SET default values to form
