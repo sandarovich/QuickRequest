@@ -19,7 +19,7 @@ console.log('[1] -> Starting Express');
 var app = express();
 
 var transport = nodemailer.createTransport(smtpTransport({
-    host: 'cchsmtp.eur.cchbc.com',
+    host: 'example.com',
     port: 25
 }));
 
