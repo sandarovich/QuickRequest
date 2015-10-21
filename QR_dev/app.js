@@ -26,15 +26,8 @@ var transport = nodemailer.createTransport(smtpTransport({
 console.log('[2] -> SMTP Configured');
 
 var users = [
-    { id: 1, username: 'UA001444', password: 'UkraineCIT4', name: 'Olexander Kolodiazhny', email: 'Olexander.Kolodiazhniy@cchellenic.com' }
-  , { id: 2, username: 'UA000165', password: 'alo2000', name: 'Andry Opanasik', email: 'Andry.Opanasik@cchellenic.com' }
-  , { id: 3, username: 'UA000555', password: 'UkraineSD1', name: 'Konstantin Konchakovsky', email: 'Konstantin.Konchakovsky@cchellenic.com' }
-  , { id: 4, username: 'UA001999', password: 'UkraineSD2', name: 'Igor Dubinin', email: 'Igor.Dubinin@cchellenic.com' }
-  , { id: 5, username: 'UA000269', password: 'UkraineSD3', name: 'Igor Voytkov', email: 'Igor.Voytkov@cchellenic.com' }
-  , { id: 6, username: 'UA001333', password: 'UkraineSD4', name: 'Oksana Dromashko', email: 'Oksana.Dromashko@cchellenic.com' }
-  , { id: 7, username: 'UA001732', password: 'UkraineSD5', name: 'Valentyn Matvienko', email: 'Valentyn.Matvienko@cchellenic.com' }
-  , { id: 8, username: 'UA000333', password: 'UkraineSD7', name: 'Oksana Misechko', email: 'Oksana.Misechko@cchellenic.com' }
-
+    { id: 1, username: 'user1', password: 'password1', name: 'User Name', email: 'user1@example.com' }
+  , { id: 2, username: 'user2', password: 'password2', name: 'User Name2', email: 'user2@example.com' }
 ];
 
 function findById(id, fn) {
