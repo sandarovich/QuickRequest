@@ -1,1 +1,0 @@
-<input data-toggle="toggle" data-on="Enabled" data-off="Disabled" type="checkbox"> <input id="toggle-two" type="checkbox"> <script> $(function() { $('#toggle-two').bootstrapToggle({ on: 'Enabled', off: 'Disabled' }); }) </script>
