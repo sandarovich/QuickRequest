@@ -1,32 +1,31 @@
 <% layout('layout') -%>
 
 <div class="container">
-	<div id="mainbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-		<div class="table-responsive">          
-    		<table class="table">
-        		<thead>
-          			<tr>
-            			<th>Parameter</th>
-            			<th>Value</th>
-          			</tr>
-        		</thead>
-        		<tbody>
-          			<tr>
-            			<td>UserID</td>
-           				<td><%= user.username %></td>
-          			</tr>
-          			<tr>
-            			<td>Name</td>
-            			<td><%= user.name %></td>
-          			</tr>
-          			<tr>
-            			<td>E-mail</td>
-            			<td><%= user.email %></td>
-          			</tr>
-        		</tbody>
-    		</table>
-		</div>
-		<a href="/"> Back to main page</a>
-	</div>
-		
+  <div id="mainbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="table-responsive">          
+        <table class="table">
+            <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>UserID</td>
+                  <td><%= user.username %></td>
+                </tr>
+                <tr>
+                  <td>Name</td>
+                  <td><%= user.name %></td>
+                </tr>
+                <tr>
+                  <td>E-mail</td>
+                  <td><%= user.email %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="/"> Back to main page</a>
+  </div>
 </div>

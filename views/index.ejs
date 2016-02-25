@@ -2,19 +2,18 @@
 <% layout('layout') -%>
 
 <div class="container">
-	<div id="mainbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+  <div id="mainbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 <% if (!user) { %>
 <h2>Welcome to <span class="label label-primary">Quick Request</span><h2>
 <h4>Please <a href="/login">Log in</a>.</h4>
 <% } else { %>
-
-	   <div class="panel panel-default" >
+     <div class="panel panel-default" >
         <div class="panel-heading">
             <div class="panel-title">Quick ticket creation</div>
         </div>
         <div style="padding-top:30px" class="panel-body" >
-    		<form id="local-email-form" class="form-horizontal" role="form" method="post">
-    			
+        <form id="local-email-form" class="form-horizontal" role="form" method="post">
+          
           
           <div style="margin-bottom: 15px" class="form-group">
             <div class="col-xs-11 selectContainer">
@@ -28,9 +27,9 @@
           </div>
           
           <div style="margin-bottom: 15px" class="form-group">
-           	<div class="col-xs-11">
-           		<textarea id="local-email-description" rows="4" class="form-control" placeholder="Описание запроса" autofocus></textarea>
-           	</div>
+            <div class="col-xs-11">
+              <textarea id="local-email-description" rows="4" class="form-control" placeholder="Описание запроса" autofocus></textarea>
+            </div>
           </div>
               
           <div style="margin-bottom: 15px" class="form-group">
@@ -44,13 +43,13 @@
           </div>
 
           <div class="form-group">
-        		<div class="col-xs-11">
-        			<button id="local-email-send" class="btn btn-default" type="button">Send email</button>
+            <div class="col-xs-11">
+              <button id="local-email-send" class="btn btn-default" type="button">Send email</button>
               <div id="local-email-info" style="display: inline; margin-left: 10px; font-size: 80%;"></div>
-        		</div>
-        	</div>	
-    		</form>
-    	</div> 
+            </div>
+          </div>  
+        </form>
+      </div> 
      </div>
      
     <script>   
@@ -68,7 +67,6 @@
         //e.preventDefault(); // Switch off browser combo
          if (e.altKey) {
             if (String.fromCharCode(e.which).match(/\d+/g) !== null) {
-              //alert(String.fromCharCode(e.which));
              var parameters = {templateID:String.fromCharCode(e.which)}
               $.get('/template', parameters, function(data) {
                 $('#local-email-description').val(data);
@@ -136,7 +134,6 @@
          });
       });
     </script>  
-
-<% } %>
-	</div>
+  <% } %>
+  </div>
 </div>

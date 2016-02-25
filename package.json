@@ -1,7 +1,7 @@
 {
-  "name": "Quick",
-  "version": "0.0.4",
-  "description": "Small IT self service",
+  "name": "Quick Request",
+  "version": "0.0.6",
+  "description": "Small IT self service utility",
   "dependencies": {
     "connect-flash": "*",
     "cookie-parser": "*",
