@@ -25,8 +25,8 @@ var transport = nodemailer.createTransport(smtpTransport({
 console.log('[2] -> SMTP Configured');
 
 var users = [
-    { id: 1, username: 'user1', password: 'pass1', name: 'User Namme1', email: 'user1@examle.com' }
-  , { id: 2, username: 'user2', password: 'pass2', name: 'User Namme2', email: 'user2@examle.com' }
+    { id: 1, username: 'USER1', password: 'pass1', name: 'User Name1', email: 'user1@examle.com' }
+  , { id: 2, username: 'USER2', password: 'pass2', name: 'User Name2', email: 'user2@examle.com' }
 
 ];
 
@@ -48,7 +48,7 @@ function findByUsername(username, fn) {
   }
   return fn(null, null);
 }
-app.use(express.static( "public" ) );
+app.use(express.static( "html" ) );
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs-locals'));
@@ -56,8 +56,8 @@ app.engine('ejs', require('ejs-locals'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(expressSession({ secret: process.env.SESSION_SECRET || 'FlB3578_20014@',
-	resave: false,
-	saveUninitialized: false
+  resave: false,
+  saveUninitialized: false
 
 }));
 
@@ -75,7 +75,7 @@ passport.use(new passportlocal.Strategy(function(username, password, done) {
       // user name, or the password is not correct, set the user to `false` to
       // indicate failure and set a flash message.  Otherwise, return the
       // authenticated `user`.
-	  
+    
       findByUsername(username, function(err, user) {
         if (err) { return done(err); }
         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
@@ -83,26 +83,26 @@ passport.use(new passportlocal.Strategy(function(username, password, done) {
         return done(null, user);
       })
     });
-	
+  
 }));
 
 passport.serializeUser(function(user, done) {
-	done(null, user.id);
+  done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-	//QUERY database or cache 
-	findById(id, function (err, user) {
+  //QUERY database or cache 
+  findById(id, function (err, user) {
     done(err, user);
   });
 });
 
 // ROUTES
 app.get('/', function(req, res) {
-	res.render('index', {
-		isAuthenticated: req.isAuthenticated(),
-		user: req.user
-	});
+  res.render('index', {
+    isAuthenticated: req.isAuthenticated(),
+    user: req.user
+  });
 });
 
 app.get('/account', ensureAuthenticated, function(req, res) {
@@ -121,9 +121,9 @@ app.get('/template', function(req, res){
 });   
 
 app.post('/login', passport.authenticate('local', //function(req, res) {
-	{ failureRedirect: '/login',
-	successRedirect: '/',
-	failureFlash : true
+  { failureRedirect: '/login',
+  successRedirect: '/',
+  failureFlash : true
 }));
 
 app.get('/esend', function(req,res){
@@ -167,14 +167,14 @@ app.post('/login', function(req, res, next) {
 });
 
 app.get('/logout', function(req,res) {
-	req.logout(); // Passport functionality
-	res.redirect('/');
+  req.logout(); // Passport functionality
+  res.redirect('/');
 });
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 5000;
 
 app.listen(port, function() {
-	console.log('[Ok] - Server is running on http://uaievad7:' + port + '/');
+  console.log('[Ok] - Server is running on http://uaievad7:' + port + '/');
 });
 
 function ensureAuthenticated(req, res, next) {
