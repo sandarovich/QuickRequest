@@ -1,5 +1,4 @@
 var express = require('express');
-//require('monitor-dashboard').start();
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
